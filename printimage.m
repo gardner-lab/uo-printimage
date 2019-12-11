@@ -22,7 +22,7 @@ function varargout = printimage(varargin)
     
     % Edit the above text to modify the response to help printimage
     
-    % Last Modified by GUIDE v2.5 22-Nov-2019 13:15:39
+    % Last Modified by GUIDE v2.5 10-Dec-2019 16:32:46
     
     % Begin initialization code - DO NOT EDIT
     gui_Singleton = 1;
@@ -241,6 +241,7 @@ function printimage_OpeningFcn(hObject, eventdata, handles, varargin)
     colormap(handles.axes2, 'gray');
     
 %     imshow('deathstar.png','Parent',handles.axes3);
+    STL.print.ArrayVCad = 0
     
     guidata(hObject, handles);
 end
@@ -415,8 +416,8 @@ function powertest_Callback(hObject, eventdata, handles)
     hSI.hScan2D.bidirectional = false;
     
     
-    gridx = 1;
-    gridy = 1;
+    gridx = 2;
+    gridy = 2;
     gridn = gridx * gridy;
     low = str2double(get(handles.powertest_start, 'String'));
     high = str2double(get(handles.powertest_end, 'String'));
@@ -1666,3 +1667,17 @@ function hex_z_step_CreateFcn(hObject, eventdata, handles)
     end
 end
 
+
+
+% --- Executes on button press in STL_FILE.
+function STL_FILE_Callback(hObject, eventdata, handles)
+    global STL;
+%     STL.print.ArrayVCad = 1
+    STL.print.ArrayVCad = get(hObject,'value')
+    
+end
+function STL_FILE_CreateFcn(hObject, eventdata, handles)
+    if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+        set(hObject,'BackgroundColor','white');
+    end
+end
