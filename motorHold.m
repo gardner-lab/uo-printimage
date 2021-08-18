@@ -8,7 +8,7 @@ function motorHold(handles, v);
         if STL.print.nmetavoxels(3) > 1
             % If we've printed more than 1 metavoxel (lens FOV) high, we
             % risk crushing what we just printed. Remind the user.
-            set(handles.crushThing, 'BackgroundColor', [1 0 0]);
+            %set(handles.crushThing, 'BackgroundColor', [1 0 0]);
             STL.print.motor_reset_needed = true;
         end
         %%%%%% FIXME Disabled! STL.print.FastZhold = true;
@@ -85,6 +85,6 @@ function motorHold(handles, v);
         STL.print.motorHold = false;
         STL.print.motor_reset_needed = false;
         set(handles.messages, 'String', '');
-        set(handles.crushThing, 'BackgroundColor', 0.94 * [1 1 1]);
+        %set(handles.crushThing, 'BackgroundColor', 0.94 * [1 1 1]);
     end
 end

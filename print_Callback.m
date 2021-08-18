@@ -191,7 +191,7 @@ function [success] = print_Callback(hObject, eventdata, handles)
                 
                 % Add the motor origin from the start of this function
                 newpos = newpos + motor.tmp_origin(1:3);
-                
+
                 move(STL.motors.stitching, newpos, 1);
                 hSI.hFastZ.positionTarget = STL.print.fastZhomePos;
                 pause(0.1);

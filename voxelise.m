@@ -127,16 +127,16 @@ function [] = voxelise(handles, target)
             start_time = datetime('now');
             eta = 'next weekend';
 
-            if exist('wbar', 'var') & ishandle(wbar) & isvalid(wbar)
-                waitbar(0, wbar, 'Voxelising...', 'CreateCancelBtn', 'cancel_button_callback');
-            else
-                wbar = waitbar(0, 'Voxelising...', 'CreateCancelBtn', 'cancel_button_callback');
-                set(wbar, 'Units', 'Normalized');
-                wp = get(wbar, 'Position');
-                wp(1:2) = STL.logistics.wbar_pos(1:2);
-                set(wbar, 'Position', wp);
-                drawnow;
-            end
+           % if exist('wbar', 'var') & ishandle(wbar) & isvalid(wbar)
+            %    waitbar(0, wbar, 'Voxelising...', 'CreateCancelBtn', 'cancel_button_callback');
+            %else
+            %    wbar = waitbar(0, 'Voxelising...', 'CreateCancelBtn', 'cancel_button_callback');
+            %    set(wbar, 'Units', 'Normalized');
+            %    wp = get(wbar, 'Position');
+            %    wp(1:2) = STL.logistics.wbar_pos(1:2);
+            %    set(wbar, 'Position', wp);
+            %    drawnow;
+            %end
             metavoxel_counter = 0;
             metavoxel_total = prod(STL.print.nmetavoxels);
             STL.print.voxelpos = {};
@@ -177,7 +177,7 @@ if STL.print.ArrayVCad == true
                            STL.print.voxelpos{mvx, mvy, mvz}.z, ...
                            STL.print.mesh);
 else  
-                        A = woodpile_VOXELISE(...
+                        A = current_VOXELISE(...
                             STL.print.voxelpos{mvx, mvy, mvz}.x, ...
                             STL.print.voxelpos{mvx, mvy, mvz}.y, ...
                             STL.print.voxelpos{mvx, mvy, mvz}.z, ...
@@ -254,8 +254,9 @@ end
                             else
                                 eta = datestr(eta_date, 'dddd HH:MM');
                             end
-                            
-                            waitbar(metavoxel_counter / metavoxel_total, wbar, sprintf('Voxelising. Done around %s.', eta));
+                            metavoxel_counter
+                            metavoxel_total
+                           % waitbar(metavoxel_counter / metavoxel_total, wbar, sprintf('Voxelising. Done around %s.', eta));
                         end                        
                     end
                 end

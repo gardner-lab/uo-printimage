@@ -1,7 +1,7 @@
 % THIS IS NOT A REAL M FILE. It won't even process IF THEN ELSE statements,
 % just variables as shown here.
 
-STL.print.zstep = 1;     % microns per step in z (vertical)
+STL.print.zstep = .5;     % microns per step in z (vertical)
 STL.print.power = 0.8;   % Seems appropriate for 10 W laser, 0.5 um Z, 512 pix Y (hmmm)
 STL.calibration.lens_optical_working_distance = 380;
 STL.calibration.lens_working_distance_safety_um = 15;
@@ -20,13 +20,17 @@ STL.motors.hex.pivot_z_um = 36700;
 % If stitching stretches objects NW-SE, increase W
 %%STL.motors.hex.leveling = [0 0 0 0.28 -0.365 -1.4]; % [ X Y Z U V W ]
 %STL.motors.hex.leveling = [0 0 0 0.4 -0.52 -1.4]; % [ X Y Z U V W ]
+%STL.motors.hex.leveling = [0 0 0 0 0 0.6]; % [ X Y Z U V W ] DM Edit
+%STL.motors.hex.leveling = [0 0 0 .1 .06 0.6]; % [ X Y Z U V W ] RY Edit
+STL.motors.hex.leveling = [0 0 0 0 0 1]; % [ X Y Z U V W ] RY edit 8/10/21; W is correct, U & V still unverified
 
+%STL.motors.hex.leveling(4:5) = -(STL.motors.hex.leveling(4:5));
 
-%STL.motors.hex.leveling = [0 0 0 -0.2500  0    -1.4]; % [ X Y Z U V W ]
-%STL.motors.hex.user_rotate_velocity = 20;
 %STL.motors.hex.slide_level = [ 0 0 0 0.255 -0.09 0 ];
 
-STL.calibration.ScanImage.ScanPhase = -5.8e-6;
+
+%STL.calibration.ScanImage.ScanPhase = -5.8e-6;
+STL.calibration.ScanImage.ScanPhase = -1.6583e-06; %RY updated 8/8/21
 
 
 STL.calibration.pockelsFrequency = 3333333; % Hz

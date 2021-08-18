@@ -45,12 +45,12 @@ function hexapod_pi_connect()
     % 2. Set the connection settings
     
     % Connection settings
-    STL.motors.hex.use_RS232_Connection    = false;
-    STL.motors.hex.use_TCPIP_Connection    = true;
+    STL.motors.hex.use_RS232_Connection    = true;
+    STL.motors.hex.use_TCPIP_Connection    = false;
     
     
     if (STL.motors.hex.use_RS232_Connection)
-        STL.motors.hex.comPort = 1;          % Look at the device manager to get the right COM port.
+        STL.motors.hex.comPort = 6;          % Look at the device manager to get the right COM port.
         STL.motors.hex.baudRate = 115200;    % Look at the manual to get the right baud rate for your controller.
     end
     
@@ -112,7 +112,8 @@ function hexapod_pi_connect()
     STL.motors.hex.range = [STL.motors.hex.C887.qTMN(all_axes) STL.motors.hex.C887.qTMX(all_axes)];
     STL.motors.hex.C887.KLD('level', all_axes, STL.motors.hex.leveling);
     STL.motors.hex.C887.KEN('level');
-    STL.motors.hex.C887.KEN('PI_Base');
+     STL.motors.hex.C887.KEN('PI_Base');
+%     STL.motors.hex.C887.KEN('test'); %David added
     STL.motors.hex.C887.CCL(0, 'advanced');
 
     fprintf('done.\n');

@@ -18,11 +18,12 @@ function varargout = printimage(varargin)
     %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
     %      instance to run (singleton)".
     %
-    % See also: GUIDE, GUIDATA, GUIHANDLES
+    % See also: GUIDE, GUIDATA, 
+    
     
     % Edit the above text to modify the response to help printimage
     
-    % Last Modified by GUIDE v2.5 10-Dec-2019 16:32:46
+    % Last Modified by GUIDE v2.5 22-Jun-2021 10:26:14
     
     % Begin initialization code - DO NOT EDIT
     gui_Singleton = 1;
@@ -233,7 +234,7 @@ function printimage_OpeningFcn(hObject, eventdata, handles, varargin)
         hSI.hFastZ.setHome(0);
     end
     %warning('Setting pixelsPerLine to 64 for faster testing.');
-    %hSI.hRoiManager.pixelsPerLine = 64;
+    %hSI.hRoiManager.pixelsPerLine = 6
     hSI.hScan2D.bidirectional = false;
     hSI.hScan2D.linePhase = STL.calibration.ScanImage.ScanPhase;
     hSI.hScanner.linePhase = STL.calibration.ScanImage.ScanPhase;
@@ -266,12 +267,15 @@ function set_up_params()
     STL.print.zoom_best = 1;
     STL.print.armed = false;
     STL.preview.resolution = [120 120 120];
-    STL.print.metavoxel_overlap = [8 8 8]; % Microns of overlap (positive is more overlap) in order to get good bonding
+%     STL.print.metavoxel_overlap = [8 8 8]; % Microns of overlap (positive is more overlap) in order to get good bonding
+%     STL.print.metavoxel_overlap = [10 0 0]; % Microns of overlap (positive is more overlap) in order to get good bonding
+    STL.print.metavoxel_overlap = [0 -15 0]; % Microns of overlap (positive is more overlap) in order to get good bonding MAB
     STL.print.voxelise_needed = true;
     STL.preview.voxelise_needed = true;
     STL.print.invert_z = false;
     STL.print.motor_reset_needed = false;
     STL.preview.show_metavoxel_slice = NaN;
+    
     STL.print.fastZhomePos = 420;
 
     STL.motors.stitching = 'hex'; % 'hex' is a hexapod (so far, only hex_pi), 'mom' is Sutter MOM
@@ -416,8 +420,8 @@ function powertest_Callback(hObject, eventdata, handles)
     hSI.hScan2D.bidirectional = false;
     
     
-    gridx = 2;
-    gridy = 2;
+    gridx = 5;
+    gridy = 5;
     gridn = gridx * gridy;
     low = str2double(get(handles.powertest_start, 'String'));
     high = str2double(get(handles.powertest_end, 'String'));
@@ -725,7 +729,7 @@ function printZoom_CreateFcn(hObject, eventdata, handles)
     end
     
     global STL;
-    possibleZooms = 1:0.1:4;
+    possibleZooms = 1:0.1:10;
     for i = 1:length(possibleZooms)
         foo{i} = sprintf('%g', possibleZooms(i));
     end
@@ -747,8 +751,8 @@ function crushReset_Callback(hObject, eventdata, handles)
     STL.motors.mom.tmp_origin = move('mom');
     STL.motors.hex.tmp_origin = hexapod_get_position_um();
     STL.print.motor_reset_needed = false;
-    set(handles.crushThing, 'BackgroundColor', 0.94 * [1 1 1]);
-    set(handles.messages, 'String', '');
+    %set(handles.crushThing, 'BackgroundColor', 0.94 * [1 1 1]);
+    %set(handles.messages, 'String', '');
 end
 
 
@@ -836,7 +840,9 @@ function test_linearity_Callback(varargin)
     
     ind = 1;
     %pb.rect = [0.46 0.46 0.08 0.08];
-    pb.rect = [0.9 0.46 0.08 0.08];
+    %pb.rect = [0.9 0.46 0.08 0.08];
+    pb.rect = [0.6 0.46 0.08 0.08];
+
     pb.powers = STL.print.power * 100;
     pb.name = 'hi';
     pb.oddLines = 1;
@@ -1681,3 +1687,15 @@ function STL_FILE_CreateFcn(hObject, eventdata, handles)
         set(hObject,'BackgroundColor','white');
     end
 end
+
+
+% --- If Enable == 'on', executes on mouse press in 5 pixel border.
+% --- Otherwise, executes on mouse press in 5 pixel border or over powertest.
+%function powertest_ButtonDownFcn(hObject, eventdata, handles)
+% hObject    handle to powertest (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+
+

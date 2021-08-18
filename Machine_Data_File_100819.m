@@ -3,7 +3,7 @@
 %% ScanImage
 
 %Global microscope properties
-objectiveResolution = 37;           % Resolution of the objective in microns/degree of scan angle
+objectiveResolution = 51;           % Resolution of the objective in microns/degree of scan angle
 
 %Scanner systems
 
@@ -39,13 +39,13 @@ beamDaqs(1).frameClockIn = '';                  % one of {PFI0..15, ''} to which
 beamDaqs(1).referenceClockIn = '';              % one of {PFI0..15, ''} to which external reference clock is connected. Leave empty for automatic routing via PXI/RTSI bus
 beamDaqs(1).referenceClockRate = 1e+07;          % if referenceClockIn is used, referenceClockRate defines the rate of the reference clock in Hz. Default: 10e6Hz
 
-beamDaqs(1).chanIDs = 0;                       % Array of integers specifying AO channel IDs, one for each beam modulation channel. Length of array determines number of 'beams'.
-beamDaqs(1).displayNames = {'Beam DAQ 1 CH 1'};                  % Optional string cell array of identifiers for each beam
-beamDaqs(1).voltageRanges = 10;                % Scalar or array of values specifying voltage range to use for each beam. Scalar applies to each beam.
+beamDaqs(1).chanIDs = [0 1];                       % Array of integers specifying AO channel IDs, one for each beam modulation channel. Length of array determines number of 'beams'.
+beamDaqs(1).displayNames = {'Discovery' 'Monaco'};                  % Optional string cell array of identifiers for each beam
+beamDaqs(1).voltageRanges = [10 1];                % Scalar or array of values specifying voltage range to use for each beam. Scalar applies to each beam.
 
-beamDaqs(1).calInputChanIDs = 0;               % Array of integers specifying AI channel IDs, one for each beam modulation channel. Values of nan specify no calibration for particular beam.
-beamDaqs(1).calOffsets = -0.00042598;                    % Array of beam calibration offset voltages for each beam calibration channel
-beamDaqs(1).calUseRejectedLight = true;        % Scalar or array indicating if rejected light (rather than transmitted light) for each beam's modulation device should be used to calibrate the transmission curve
+beamDaqs(1).calInputChanIDs = [0 NaN];               % Array of integers specifying AI channel IDs, one for each beam modulation channel. Values of nan specify no calibration for particular beam.
+beamDaqs(1).calOffsets = [0.0005704 0];                    % Array of beam calibration offset voltages for each beam calibration channel
+beamDaqs(1).calUseRejectedLight = [false false];        % Scalar or array indicating if rejected light (rather than transmitted light) for each beam's modulation device should be used to calibrate the transmission curve
 beamDaqs(1).calOpenShutterIDs = 1;             % Array of shutter IDs that must be opened for calibration (ie shutters before light modulation device).
 
 %% Motors
@@ -94,7 +94,7 @@ digitalIODeviceName = 'PXI1Slot3';  % String: Device name of the DAQ board or Fl
 fpgaModuleType = 'NI7961';          % String: Type of FlexRIO FPGA module in use. One of {'NI7961' 'NI7975'}
 digitizerModuleType = 'NI5734';     % String: Type of digitizer adapter module in use. One of {'NI5732' 'NI5734'}
 rioDeviceID = 'RIO0';               % FlexRIO Device ID as specified in MAX. If empty, defaults to 'RIO0'
-channelsInvert = [true false true true];             % Logical: Specifies if the input signal is inverted (i.e., more negative for increased light signal)
+channelsInvert = [true true false true];             % Logical: Specifies if the input signal is inverted (i.e., more negative for increased light signal)
 
 externalSampleClock = false;        % Logical: use external sample clock connected to the CLK IN terminal of the FlexRIO digitizer module
 externalSampleClockRate = [];       % [Hz]: nominal frequency of the external sample clock connected to the CLK IN terminal (e.g. 80e6); actual rate is measured on FPGA
